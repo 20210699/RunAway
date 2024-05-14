@@ -3,6 +3,8 @@
     <style name="Base.Theme.RunAway" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your light theme here. -->
         <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+        <item name="editTextBackground">@drawable/launch_transparent</item>
+        <item name="android:windowIsTranslucent">true</item>
     </style>
 
     <style name="Theme.RunAway" parent="Base.Theme.RunAway" />
