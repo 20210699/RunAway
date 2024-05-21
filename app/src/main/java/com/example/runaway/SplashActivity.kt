@@ -2,33 +2,45 @@ package com.example.runaway
 
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import com.example.runaway.databinding.ActivitySplashBinding
+import android.animation.Animator
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.cancel
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
+
 class SplashActivity : AppCompatActivity() {
-    val activityScope = CoroutineScope(Dispatchers.Main)
+    private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        setContentView(R.layout.activity_splash)
 
-        activityScope.launch {
-            delay(3930)
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
-            var intent = Intent(this@SplashActivity, MainActivity::class.java)
-            startActivity(intent)
-            finish()
-        }
-    }
+        binding.lottie.addAnimatorListener(object : Animator.AnimatorListener {
+            override fun onAnimationRepeat(animator: Animator) {
+                // Not needed for this scenario, but must be implemented
+            }
 
-    override fun onPause() {
-        activityScope.cancel()
-        super.onPause()
+            override fun onAnimationEnd(animator: Animator) {
+                val intent = Intent(this@SplashActivity, MainActivity::class.java)
+                startActivity(intent)
+                finish()
+            }
+
+            override fun onAnimationCancel(animator: Animator) {
+                // Handle animation cancel
+            }
+
+            override fun onAnimationStart(animator: Animator) {
+                // Handle animation start
+            }
+        })
+
+        // Optional: Start the animation if not set to play automatically
+        binding.lottie.playAnimation()
     }
 }

@@ -9,10 +9,11 @@
     android:background="#31992C">
 
     <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/lottie"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:lottie_autoPlay="true"
-        app:lottie_loop="true"
+        app:lottie_loop="false"
         app:lottie_rawRes="@raw/runaway_splash_animation"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
