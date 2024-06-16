@@ -9,18 +9,24 @@
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="13dp">
+        android:layout_height="match_parent">
+
+        <com.naver.maps.map.MapView
+            android:id="@+id/naver_map"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
 
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/transparent">
+            android:background="@android:color/transparent"
+            android:layout_marginTop="13dp">
 
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize">
+                android:layout_height="?attr/actionBarSize"
+                android:background="@android:color/transparent">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -32,15 +38,17 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
                         android:layout_height="wrap_content"
-                        app:cardCornerRadius="10dp"
-                        android:layout_marginLeft="5dp">
+                        app:cardCornerRadius="5dp"
+                        android:layout_marginLeft="5dp"
+                        android:backgroundTint="@color/white">
 
                         <EditText
-                            android:layout_margin="5dp"
+                            android:layout_margin="8dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:hint="대피소 장소 검색"
-                            android:textSize="10dp" />
+                            android:hint="대피소 검색"
+                            android:textSize="13dp"
+                            android:background="@android:color/transparent"/>
 
                     </androidx.cardview.widget.CardView>
 
@@ -57,12 +65,14 @@
         </com.google.android.material.appbar.AppBarLayout>
 
         <!-- 메인 콘텐츠 영역 -->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="5dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        </RelativeLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

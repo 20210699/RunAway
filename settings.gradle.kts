@@ -18,6 +18,15 @@ dependencyResolutionManagement {
         mavenCentral()
     }
 }
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.PREFER_SETTINGS)
+    repositories {
+        maven {
+            url = uri("https://repository.map.naver.com/archive/maven")
+        }
+    }
+}
+
 
 rootProject.name = "RunAway"
 include(":app")

@@ -52,4 +52,31 @@ dependencies {
     //splash
     implementation ("com.airbnb.android:lottie:6.4.0") //Lottie
     implementation("androidx.core:core-splashscreen:1.0.0")
+
+    //retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+
+    //glide
+    implementation("com.github.bumptech.glide:glide:4.16.0")
+
+    //firebase
+    implementation(platform("com.google.firebase:firebase-bom:33.0.0"))
+    implementation("com.google.firebase:firebase-auth-ktx:23.0.0")
+    implementation("androidx.multidex:multidex:2.0.1")
+
+    //google auth
+    implementation("com.google.android.gms:play-services-auth:21.1.1")
+
+    //firestore
+    implementation("com.google.firebase:firebase-firestore-ktx:25.0.0")
+
+    //firebase storage
+    implementation("com.google.firebase:firebase-storage-ktx:21.0.0")
+
+    //json
+    implementation("com.google.code.gson:gson:2.8.6")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+
+    //naver map API
+    implementation ("com.naver.maps:map-sdk:3.18.0")
 }

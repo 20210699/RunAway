@@ -2,6 +2,10 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:id="@+id/item_shalter"
+        android:icon="@android:drawable/ic_menu_info_details"
+        android:title="대피소"/>
+    <item
         android:id="@+id/item_save"
         android:icon="@drawable/save"
         android:title="저장한 대피소"/>

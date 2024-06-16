@@ -10,10 +10,16 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.drawerlayout.widget.DrawerLayout
 import com.example.runaway.databinding.ActivityMainBinding
 import com.google.android.material.navigation.NavigationView
+import com.naver.maps.map.MapView
+import com.naver.maps.map.NaverMap
+import com.naver.maps.map.OnMapReadyCallback
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, OnMapReadyCallback {
     private lateinit var binding: ActivityMainBinding
     private lateinit var actionBarDrawerToggle: ActionBarDrawerToggle
+    private lateinit var mapView: MapView
+    private lateinit var naverMap: NaverMap
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +50,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         // NavigationView 리스너 설정
         navigationView.setNavigationItemSelectedListener(this)
+
+    }
+
+    //naver map
+    override fun onMapReady(p0: NaverMap) {
+        TODO("Not yet implemented")
     }
 
     // DrawerLayout Toggle 핸들링
@@ -57,6 +69,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     // Drawer 메뉴 선택 처리
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            R.id.item_shalter -> {
+                Log.d("mobileapp", "대피소 메뉴")
+                // val intent = Intent(this, BoardActivity::class.java)
+                // startActivity(intent)
+                binding.drawerLayout.closeDrawers()
+                return true
+            }
             R.id.item_save -> {
                 Log.d("mobileapp", "저장 메뉴")
                 // val intent = Intent(this, BoardActivity::class.java)
