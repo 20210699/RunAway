@@ -1,6 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-             android:layout_width="match_parent"
-             android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_marginBottom="15dp"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    android:id="@+id/item_main">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <LinearLayout
+        android:id="@+id/tv_shelter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <RelativeLayout
+            android:id="@+id/btn_star"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="10dp">
+
+            <ImageView
+                android:id="@+id/btn_save"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/btn_save"
+                android:visibility="visible"/>
+            <ImageView
+                android:id="@+id/btn_save_1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/btn_save_1"
+                android:visibility="gone"/>
+
+        </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="대피소 이름"
+                android:id="@+id/item_name"
+                android:textSize="15dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="상세 주소"
+                android:id="@+id/item_addr"
+                android:textSize="12dp"
+                android:layout_marginTop="2dp"
+                android:layout_below="@id/tv_shelter"/>
+
+        </LinearLayout>
+
+
+        <TextView
+            android:id="@+id/item_distance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="5dp"
+            android:text="남은 거리"
+            android:textSize="10dp"
+            android:gravity="right"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/shelter_detail"
+        android:layout_width="90dp"
+        android:layout_height="40dp"
+        android:text="상세 보기"
+        android:textSize="10dp"
+        android:backgroundTint="@color/black"
+        android:layout_below="@id/tv_shelter"
+        android:layout_alignParentEnd="true"
+        android:visibility="gone"/>
+</RelativeLayout>

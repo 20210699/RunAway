@@ -33,7 +33,7 @@
                     android:layout_height="match_parent"
                     android:orientation="horizontal"
                     android:gravity="center_vertical"
-                    >
+                    android:layout_marginTop="10dp">
 
                     <androidx.cardview.widget.CardView
                         android:layout_width="280dp"
@@ -47,7 +47,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:hint="대피소 검색"
-                            android:textSize="13dp"
+                            android:textSize="18dp"
                             android:background="@android:color/transparent"/>
 
                     </androidx.cardview.widget.CardView>
@@ -56,7 +56,8 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:src="@drawable/search"
-                        android:layout_marginLeft="8dp"/>
+                        android:layout_marginLeft="8dp"
+                        android:layout_gravity="center_vertical"/>
 
                 </LinearLayout>
 
@@ -64,15 +65,22 @@
 
         </com.google.android.material.appbar.AppBarLayout>
 
-        <!-- 메인 콘텐츠 영역 -->
-        <RelativeLayout
+        <LinearLayout
+            android:id="@+id/bottom_sheet"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="5dp"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:background="@drawable/rounded_corners_top"
+            app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
-        </RelativeLayout>
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp"
+                android:clipToPadding="false"/>
+
+        </LinearLayout>
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
@@ -85,4 +93,5 @@
         app:headerLayout="@layout/navigation_header"
         app:menu="@menu/menu_navigation"
         android:background="#fefefe"/>
+
 </androidx.drawerlayout.widget.DrawerLayout>

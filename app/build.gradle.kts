@@ -1,6 +1,16 @@
 plugins {
-    alias(libs.plugins.androidApplication)
-    alias(libs.plugins.jetbrainsKotlinAndroid)
+//    id("com.android.application")
+////    alias(libs.plugins.androidApplication)
+//    alias(libs.plugins.jetbrainsKotlinAndroid)
+//    id("kotlin-kapt")
+//    id("com.google.gms.google-services")
+
+    id("com.android.application")
+    id("org.jetbrains.kotlin.android")
+    id("kotlin-kapt")
+
+    //firebase
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -35,6 +45,9 @@ android {
     }
     viewBinding{
         enable = true
+    }
+    buildFeatures {
+        dataBinding = true
     }
 }
 
@@ -79,4 +92,11 @@ dependencies {
 
     //naver map API
     implementation ("com.naver.maps:map-sdk:3.18.0")
+
+    // tikxml: xml 변환기
+    implementation("com.tickaroo.tikxml:annotation:0.8.13")
+    implementation("com.tickaroo.tikxml:core:0.8.13")
+    implementation("com.tickaroo.tikxml:retrofit-converter:0.8.13")
+    implementation("androidx.legacy:legacy-support-v4:1.0.0")
+    kapt ("com.tickaroo.tikxml:processor:0.8.13") // kapt : 어노테이션과 같은 처리기
 }

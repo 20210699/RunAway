@@ -2,4 +2,5 @@
     <string name="app_name">RunAway</string>
     <string name="drawer_opened">Opened Drawer</string>
     <string name="drawer_closed">Closed Drawer</string>
+    <string name="default_client_id">796094108471-g14d2g6nkhj1d1htg8gn4vlnf55g1gjh.apps.googleusercontent.com</string>
 </resources>
