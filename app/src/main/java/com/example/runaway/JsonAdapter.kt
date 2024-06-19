@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.runaway.MyApplication.Companion.db
 import com.example.runaway.databinding.ItemMainBinding
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class JsonViewHolder(val binding: ItemMainBinding): RecyclerView.ViewHolder(binding.root)
 class JsonAdapter (val context: Context, val datas:MutableList<MyJsonItems>?): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
@@ -42,6 +44,32 @@ class JsonAdapter (val context: Context, val datas:MutableList<MyJsonItems>?): R
                 binding.shelterDetail.visibility = View.VISIBLE
             }
         }
+
+        val placeName = model.shel_nm
+        val user = Firebase.auth.currentUser
+
+        // Firestore에서 해당 장소가 있는지 확인하는 코드
+        db.collection("place")
+            .whereEqualTo("pname", placeName)
+            .whereEqualTo("email", user?.email)
+            .get()
+            .addOnCompleteListener { task ->
+                if (task.isSuccessful) {
+                    if (!task.result.isEmpty) {
+                        // 동일한 장소가 이미 존재하는 경우
+                        binding.btnSave.visibility = View.GONE
+                        binding.btnSave1.visibility = View.VISIBLE
+                    } else {
+                        // 동일한 장소가 존재하지 않는 경우
+                        binding.btnSave.visibility = View.VISIBLE
+                        binding.btnSave1.visibility = View.GONE
+                    }
+                    Log.d("Firestore - 장소", "장소 불러오기 성공")
+                } else {
+                    Log.d("Firestore", "Error getting documents: ", task.exception)
+                }
+            }
+
         binding.btnStar.setOnClickListener {
             if (binding.btnSave.visibility == View.VISIBLE) {
                 // 현재 보이는 상태라면 숨김 처리
@@ -87,7 +115,6 @@ class JsonAdapter (val context: Context, val datas:MutableList<MyJsonItems>?): R
                 binding.btnSave1.visibility = View.GONE
 
                 // 해당 장소를 Firestore에서 삭제하는 코드 추가
-                val placeName = model.shel_nm
                 val placeRef = db.collection("place").whereEqualTo("pname", placeName)
 
                 placeRef.get().addOnCompleteListener { task ->
