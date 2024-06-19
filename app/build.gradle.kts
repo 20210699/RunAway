@@ -99,4 +99,7 @@ dependencies {
     implementation("com.tickaroo.tikxml:retrofit-converter:0.8.13")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     kapt ("com.tickaroo.tikxml:processor:0.8.13") // kapt : 어노테이션과 같은 처리기
+
+    // setting 구현
+    implementation("androidx.preference:preference:1.2.1")
 }

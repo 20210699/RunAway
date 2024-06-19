@@ -3,6 +3,7 @@ package com.example.runaway
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,6 +18,12 @@ class BoardActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityBoardBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //툴바 뒤로가기 활성화
+        var toolbar = binding.toolbarMemo
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
+        supportActionBar?.title = "게시판"
 
         binding.mainFab.setOnClickListener {
             if (MyApplication.checkAuth()) {
@@ -51,6 +58,17 @@ class BoardActivity : AppCompatActivity() {
                 .addOnFailureListener {
                     Toast.makeText(this, "서버 데이터 획득 실패", Toast.LENGTH_LONG).show()
                 }
+        }
+    }
+    //뒤로가기
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                // 뒤로가기 버튼 눌렀을 때
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 

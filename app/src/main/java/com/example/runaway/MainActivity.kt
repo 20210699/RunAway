@@ -1,8 +1,12 @@
 package com.example.runaway
 
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
+import android.preference.PreferenceManager
 import android.util.Log
+import android.util.TypedValue
 import android.view.MenuItem
 import android.view.View
 import android.widget.Button
@@ -17,6 +21,7 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.runaway.databinding.ActivityBottomSheetBinding
 import com.example.runaway.databinding.ActivityMainBinding
+import com.example.runaway.databinding.ItemMainBinding
 import com.example.runaway.databinding.NavigationHeaderBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
@@ -34,6 +39,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private lateinit var naverMap: NaverMap
 
     lateinit var headerView : View
+    lateinit var sharedPreference: SharedPreferences
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
@@ -131,7 +137,32 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         }
 
 
+        // 설정값 반영
+        sharedPreference = PreferenceManager.getDefaultSharedPreferences(this)
+        val color = sharedPreference.getString("color", "#00ff00")
+        binding.recyclerView.setBackgroundColor(Color.parseColor(color))
 
+//        val idStr = sharedPreference.getString("id", "")
+//        binding.todoTitle.text = idStr
+
+        val size = sharedPreference.getString("size", "16.0f")
+        binding.edtSearch.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size!!.toFloat())
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // 설정값 반영
+        sharedPreference = PreferenceManager.getDefaultSharedPreferences(this)
+        val color = sharedPreference.getString("color", "#ffffff")
+        binding.recyclerView.setBackgroundColor(Color.parseColor(color))
+
+//        val idStr = sharedPreference.getString("id", "")
+//        binding.todoTitle.text = idStr
+
+        val size = sharedPreference.getString("size", "30.0f")
+        binding.edtSearch.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size!!.toFloat())
     }
 
     //naver map
@@ -166,6 +197,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             R.id.item_setting -> {
                 Log.d("mobileapp", "설정 메뉴")
+                val intent = Intent(this, SettingsActivity::class.java)
+                startActivity(intent)
                 binding.drawerLayout.closeDrawers()
                 return true
             }

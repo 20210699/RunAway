@@ -2,6 +2,7 @@ package com.example.runaway
 
 import android.content.Intent
 import android.os.Bundle
+import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
@@ -20,6 +21,12 @@ class MemoActivity : AppCompatActivity() {
         binding = ActivityMemoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //툴바 뒤로가기 활성화
+        var toolbar = binding.toolbarMemo
+        setSupportActionBar(toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true) // 뒤로가기 버튼 활성화
+        supportActionBar?.title = "메모"
+
         //테이블에 저장한 데이터 불러오기
         datas = mutableListOf<Memo>()
         val db = DBHelper(this).readableDatabase
@@ -32,10 +39,10 @@ class MemoActivity : AppCompatActivity() {
         db.close()
 
         adapter= MemoAdapter(datas)
-        binding.recyclerView.adapter=adapter
+        binding.saveRecyclerView.adapter=adapter
         val layoutManager = LinearLayoutManager(this)
-        binding.recyclerView.layoutManager=layoutManager
-        binding.recyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
+        binding.saveRecyclerView.layoutManager=layoutManager
+        binding.saveRecyclerView.addItemDecoration(DividerItemDecoration(this, LinearLayoutManager.VERTICAL))
 
         val requestLauncher: ActivityResultLauncher<Intent> = registerForActivityResult(
             ActivityResultContracts.StartActivityForResult()) { result ->
@@ -57,6 +64,17 @@ class MemoActivity : AppCompatActivity() {
             intent.putExtra("today",dateFormat.format(System.currentTimeMillis()))
 
             requestLauncher.launch(intent)
+        }
+    }
+    //뒤로가기
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        return when (item.itemId) {
+            android.R.id.home -> {
+                // 뒤로가기 버튼 눌렀을 때
+                finish()
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
         }
     }
 }
