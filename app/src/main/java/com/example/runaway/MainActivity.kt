@@ -169,6 +169,13 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 binding.drawerLayout.closeDrawers()
                 return true
             }
+            R.id.item_memo -> {
+                Log.d("mobileapp", "저장 메뉴")
+                val intent = Intent(this, MemoActivity::class.java)
+                startActivity(intent)
+                binding.drawerLayout.closeDrawers()
+                return true
+            }
         }
         return false
     }

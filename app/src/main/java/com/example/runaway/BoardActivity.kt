@@ -4,12 +4,14 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.runaway.databinding.ActivityBoardBinding
 import com.google.firebase.firestore.Query
 
 class BoardActivity : AppCompatActivity() {
     lateinit var binding: ActivityBoardBinding
+    lateinit var adapter: BoardAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +40,11 @@ class BoardActivity : AppCompatActivity() {
                         item.docId = document.id
                         itemList.add(item)
                     }
-                    var adapter = BoardAdapter(this, itemList)
+                    adapter = BoardAdapter(this, itemList)
                     binding.recyclerView.layoutManager = LinearLayoutManager(this)
+                    binding.recyclerView.addItemDecoration(
+                            DividerItemDecoration(applicationContext, LinearLayoutManager.VERTICAL)
+                            )
                     binding.recyclerView.adapter = adapter
 
                 }
@@ -48,6 +53,5 @@ class BoardActivity : AppCompatActivity() {
                 }
         }
     }
-
 
 }

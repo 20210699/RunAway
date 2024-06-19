@@ -13,5 +13,9 @@
         android:id="@+id/item_setting"
         android:icon="@drawable/setting"
         android:title="설정"/>
+    <item
+        android:id="@+id/item_memo"
+        android:icon="@drawable/setting"
+        android:title="메모"/>
 
 </menu>
