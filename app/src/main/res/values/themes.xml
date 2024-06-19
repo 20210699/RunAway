@@ -15,5 +15,11 @@
 
     <style name="Theme.RunAway" parent="Base.Theme.RunAway" />
     <style name="Theme.AuthActivity" parent="Theme.AppCompat.Light.NoActionBar" />
+<!--    <style name="Theme.SaveListActivity" parent="Theme.AppCompat.Light.DarkActionBar">-->
+<!--        &lt;!&ndash; Customize your theme here. &ndash;&gt;-->
+<!--        <item name="windowActionBar">false</item>-->
+<!--        <item name="windowNoTitle">true</item>-->
+<!--    </style>-->
+
 
 </resources>
