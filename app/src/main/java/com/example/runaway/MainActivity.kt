@@ -102,7 +102,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             //response 성공
             override fun onResponse(call: Call<JsonResponse>, response: Response<JsonResponse>) {
                 val datas = response.body()!!.TsunamiShelter.get(1).row.toMutableList()
-                val adapter = JsonAdapter(datas)
+                val adapter = JsonAdapter(applicationContext,datas)
                 if(response.isSuccessful){
                     Log.d("mobileapp","$response")
                     Log.d("mobileapp","${response.body()}")
@@ -123,6 +123,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 Log.d("mobileapp", "onFailure $t")
             }
         })
+
+        //검색 기능 구현
+        binding.btnSearch.setOnClickListener {
+            val name = binding.edtSearch.text
+            //추후 구현
+        }
 
 
 
@@ -146,15 +152,15 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.item_board -> {
                 Log.d("mobileapp", "게시판 메뉴")
-                // val intent = Intent(this, BoardActivity::class.java)
-                // startActivity(intent)
+                 val intent = Intent(this, BoardActivity::class.java)
+                 startActivity(intent)
                 binding.drawerLayout.closeDrawers()
                 return true
             }
             R.id.item_save -> {
                 Log.d("mobileapp", "저장 메뉴")
-                // val intent = Intent(this, BoardActivity::class.java)
-                // startActivity(intent)
+                val intent = Intent(this, SaveListActivity::class.java)
+                startActivity(intent)
                 binding.drawerLayout.closeDrawers()
                 return true
             }
