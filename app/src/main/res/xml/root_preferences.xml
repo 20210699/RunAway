@@ -2,17 +2,12 @@
 
     <PreferenceCategory app:title="화면 설정">
 
-        <EditTextPreference
-            app:key="id"
-            app:title="ID 입력"
-            app:useSimpleSummaryProvider="true" />
-
         <ListPreference
             app:defaultValue="#00ff00"
             app:entries="@array/my_color"
             app:entryValues="@array/my_color_values"
             app:key="color"
-            app:title="색상 선택"
+            app:title="배경 색상 선택"
             app:useSimpleSummaryProvider="true" />
 
         <ListPreference
@@ -20,7 +15,23 @@
             app:entries="@array/my_size"
             app:entryValues="@array/my_size_values"
             app:key="size"
-            app:title="크기 선택"
+            app:title="검색 글자 크기 선택"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="#00ff00"
+            app:entries="@array/d_my_color"
+            app:entryValues="@array/d_my_color_values"
+            app:key="d_color"
+            app:title="드로어 배경 색상 선택"
+            app:useSimpleSummaryProvider="true" />
+
+        <ListPreference
+            app:defaultValue="16.0f"
+            app:entries="@array/r_my_size"
+            app:entryValues="@array/r_my_size_values"
+            app:key="r_size"
+            app:title="아이템 글자 크기 선택"
             app:useSimpleSummaryProvider="true" />
 
     </PreferenceCategory>

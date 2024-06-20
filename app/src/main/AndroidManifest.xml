@@ -24,7 +24,7 @@
             android:exported="false" />
         <activity
             android:name=".AddMemoActivity"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".MemoActivity"
             android:exported="false" />

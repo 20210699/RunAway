@@ -93,6 +93,9 @@ dependencies {
     //naver map API
     implementation ("com.naver.maps:map-sdk:3.18.0")
 
+    //naver 현재 위치
+    implementation("com.google.android.gms:play-services-location:21.3.0")
+
     // tikxml: xml 변환기
     implementation("com.tickaroo.tikxml:annotation:0.8.13")
     implementation("com.tickaroo.tikxml:core:0.8.13")

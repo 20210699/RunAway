@@ -1,7 +1,11 @@
 package com.example.runaway
 
 import android.content.Intent
+import android.content.SharedPreferences
+import android.graphics.Color
 import android.os.Bundle
+import android.preference.PreferenceManager
+import android.util.TypedValue
 import android.view.MenuItem
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
@@ -16,6 +20,7 @@ class MemoActivity : AppCompatActivity() {
     lateinit var binding :ActivityMemoBinding
     lateinit var datas: MutableList<Memo>
     lateinit var adapter: MemoAdapter
+    lateinit var sharedPreference: SharedPreferences
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMemoBinding.inflate(layoutInflater)
@@ -38,7 +43,7 @@ class MemoActivity : AppCompatActivity() {
         }
         db.close()
 
-        adapter= MemoAdapter(datas)
+        adapter= MemoAdapter(this, datas)
         binding.saveRecyclerView.adapter=adapter
         val layoutManager = LinearLayoutManager(this)
         binding.saveRecyclerView.layoutManager=layoutManager
@@ -65,6 +70,11 @@ class MemoActivity : AppCompatActivity() {
 
             requestLauncher.launch(intent)
         }
+
+        // 설정값 반영
+        sharedPreference = PreferenceManager.getDefaultSharedPreferences(this)
+        val color = sharedPreference.getString("d_color", "#ffffff")
+        binding.saveRecyclerView.setBackgroundColor(Color.parseColor(color))
     }
     //뒤로가기
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -76,5 +86,15 @@ class MemoActivity : AppCompatActivity() {
             }
             else -> super.onOptionsItemSelected(item)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // 설정값 반영
+        sharedPreference = PreferenceManager.getDefaultSharedPreferences(this)
+        val color = sharedPreference.getString("d_color", "#ffffff")
+        binding.saveRecyclerView.setBackgroundColor(Color.parseColor(color))
+
     }
 }

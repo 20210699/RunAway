@@ -25,9 +25,12 @@ import com.example.runaway.databinding.ItemMainBinding
 import com.example.runaway.databinding.NavigationHeaderBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
+import com.naver.maps.map.LocationSource
+import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapView
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.util.FusedLocationSource
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
@@ -43,6 +46,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
+    // naver 현재 위치 구현
+    private val LOCATION_PERMISSION_REQUEST_CODE: Int = 1000
+    private lateinit var locationSource: FusedLocationSource
+
+    // Naver 마커
+    private lateinit var naverMapList: MutableList<MyJsonItems>
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
@@ -88,6 +97,12 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             binding.drawerLayout.closeDrawers()
         }
 
+        // 현재 위치 구현
+        mapView = findViewById(R.id.naver_map)
+        mapView.onCreate(savedInstanceState)
+        mapView.getMapAsync(this)
+
+        locationSource = FusedLocationSource(this,LOCATION_PERMISSION_REQUEST_CODE)
 
         //bottomsheet 설정
         bottomSheetBehavior = BottomSheetBehavior.from(binding.bottomSheet)
@@ -114,6 +129,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     Log.d("mobileapp","${response.body()}")
                     Log.d("mobileapp","$datas")
                     //Toast.makeText(applicationContext,"불러오기 성공 ${response}", Toast.LENGTH_LONG).show()
+
+                    // 마커 구현
+                    naverMapList = datas
+
 
                     binding.recyclerView.layoutManager = LinearLayoutManager(applicationContext)
                     binding.recyclerView.addItemDecoration(
@@ -142,9 +161,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         val color = sharedPreference.getString("color", "#00ff00")
         binding.recyclerView.setBackgroundColor(Color.parseColor(color))
 
-//        val idStr = sharedPreference.getString("id", "")
-//        binding.todoTitle.text = idStr
-
         val size = sharedPreference.getString("size", "16.0f")
         binding.edtSearch.setTextSize(TypedValue.COMPLEX_UNIT_DIP, size!!.toFloat())
 
@@ -166,8 +182,18 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     //naver map
-    override fun onMapReady(p0: NaverMap) {
-        TODO("Not yet implemented")
+    override fun onMapReady(naverMap: NaverMap) {
+        // 현재 위치 구현
+        this.naverMap = naverMap
+        naverMap.locationSource = locationSource
+        naverMap.locationTrackingMode = LocationTrackingMode.Follow
+
+        // 마커 구현
+
+    }
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        mapView.onSaveInstanceState(outState)
     }
 
     // DrawerLayout Toggle 핸들링
