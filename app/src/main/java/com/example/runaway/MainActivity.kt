@@ -25,11 +25,13 @@ import com.example.runaway.databinding.ItemMainBinding
 import com.example.runaway.databinding.NavigationHeaderBinding
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.navigation.NavigationView
+import com.naver.maps.geometry.LatLng
 import com.naver.maps.map.LocationSource
 import com.naver.maps.map.LocationTrackingMode
 import com.naver.maps.map.MapView
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.OnMapReadyCallback
+import com.naver.maps.map.overlay.Marker
 import com.naver.maps.map.util.FusedLocationSource
 import retrofit2.Call
 import retrofit2.Callback
@@ -43,6 +45,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
     lateinit var headerView : View
     lateinit var sharedPreference: SharedPreferences
+    private var marker = Marker()
 
     private lateinit var bottomSheetBehavior: BottomSheetBehavior<LinearLayout>
 
@@ -131,8 +134,28 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     //Toast.makeText(applicationContext,"불러오기 성공 ${response}", Toast.LENGTH_LONG).show()
 
                     // 마커 구현
-                    naverMapList = datas
+                    val markers = Array(datas.size) { Marker() }
 
+                    for (i in datas.indices) {
+                        markers[i] = Marker().apply {
+                            val lat = datas[i].lat.toDouble()
+                            val lnt = datas[i].lon.toDouble()
+                            position = LatLng(lat, lnt)
+                            map = naverMap
+                            setOnClickListener { overlay ->
+                                Toast.makeText(applicationContext, "${datas[i].shel_nm}", Toast.LENGTH_SHORT).show()
+                                false
+                            }
+                        }
+                    }
+
+//                    var lat = datas.get(0).lat.toDouble()
+//                    var lon = datas.get(0).lon.toDouble()
+//
+//                    marker.position = LatLng(lat,lon)
+//                    marker.map = naverMap
+
+                    //Toast.makeText(applicationContext,"${datas.get(0).address}",Toast.LENGTH_LONG).show()
 
                     binding.recyclerView.layoutManager = LinearLayoutManager(applicationContext)
                     binding.recyclerView.addItemDecoration(
@@ -187,9 +210,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         this.naverMap = naverMap
         naverMap.locationSource = locationSource
         naverMap.locationTrackingMode = LocationTrackingMode.Follow
-
-        // 마커 구현
-
     }
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
